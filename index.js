@@ -12,21 +12,41 @@ const client = new DiscordJS.Client({
 
 client.on('ready', () => {
     console.log('MogBot is online!')
-})
 
-const guildId = 'paste server id here'
-const guild = client.guilds.cache.get(guildId)
-let commands
+    const guildId = '725133498293420073'
+    const guild = client.guilds.cache.get(guildId)
+    let commands
 
-if(guild) {
-    commands = guild.commands
-} else {
-    commands = client.application?.commands
-}
+    if (guild) {
+        commands = guild.commands
+    } else {
+        commands = client.application?.commands
+    }
 
-commands?.create({
-    name: 'amog',
-    description: 'replies with os'
+    commands?.create({
+        name: 'mog',
+        description: 'replies with os'
+    })
+
+    commands?.create({
+        name: 'add',
+        description: 'Adds two numbers',
+        options: [
+            {
+                name: 'num1',
+                description: 'The first number.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.NUMBER
+            },
+            {
+                name: 'num2',
+                description: 'The second number',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.NUMBER, 
+            }
+        ]
+    })
+
 })
 
 client.on('interactionCreate', async (interaction) => {
@@ -37,11 +57,18 @@ client.on('interactionCreate', async (interaction) => {
   const { commandName, options } = interaction
   
   if(commandName === 'mog') {
-      interaction.channel.send({
+      interaction.reply({
           content: 'os',
+          //ephemeral: true,
+    })
+  } else if (commandName === 'add') {
+      const num1 = options.getNumber('num1')
+      const num2 = options.getNumber('num2')
+
+      interaction.reply({
+          content: `The sum is ${num1+num2}`,
       })
   }
- 
 })
 
 client.on('messageCreate', (message) => {
