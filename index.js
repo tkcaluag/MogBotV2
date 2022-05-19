@@ -85,7 +85,7 @@ client.on('interactionCreate', async (interaction) => {
       let anime
       let x = Math.floor(Math.random()*2)
       if (x === 0) {
-          anime = 'Dragon Ball'
+          anime = 'DragonBall'
       } if(x === 1) {
           anime = 'Hunter x Hunter'
       }
