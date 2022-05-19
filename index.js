@@ -46,6 +46,18 @@ client.on('ready', () => {
             }
         ]
     })
+    
+    commands?.create({
+        name: 'mid',
+        description: 'random mid show',
+        
+        options: [{
+            name: 'genre',
+            description: 'genre of media',
+            required: true,
+            type: DiscordJS.Constans.ApplicationCommandOptionTypes.STRING,
+        }]
+    })
 
 })
 
@@ -68,6 +80,21 @@ client.on('interactionCreate', async (interaction) => {
       interaction.reply({
           content: `The sum is ${num1+num2}`,
       })
+  } else if (commandName === 'mid') {
+      const genre = options.getString('genre')
+      let anime
+      let x = Math.floor(Math.random()*2)
+      if (x === 0) {
+          anime = 'Dragon Ball'
+      } if(x === 1) {
+          anime = 'Hunter x Hunter'
+      }
+      
+      if (genre === 'anime') {
+          interaction.reply({
+              content: anime + 'is mid'
+          })
+      }
   }
 })
 
