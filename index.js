@@ -82,15 +82,16 @@ client.on('interactionCreate', async (interaction) => {
       })
   } else if (commandName === 'mid') {
     const name = options.getString('name')
-    let midReply = "mid" + name.substring(2)
-    let index
-    while(index != -1){
-        index = midReply.indexOf(" ", index)
-        midReply = midReply.substring(0, index) + "mid" + midReply.substring(index+4)
-        if(index != -1){
-            index++;
-        }
-    }
+    let midReply = "Mid" + name.substring(3)
+    
+    // let index
+    // while(index != -1){
+    //     index = midReply.indexOf(" ", index)
+    //     midReply = midReply.substring(0, index) + "mid" + midReply.substring(index+4)
+    //     if(index != -1){
+    //         index++;
+    //     }
+    // }
     
     interaction.reply({
         content: midReply,
