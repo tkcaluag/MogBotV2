@@ -82,7 +82,12 @@ client.on('interactionCreate', async (interaction) => {
       })
   } else if (commandName === 'mid') {
     const name = options.getString('name')
-    let midReply = "Mid" + name.substring(3)
+    let midReply
+    if(name.length() < 3){
+        midReply = "Mid"
+    } else {
+        midReply = "Mid" + name.substring(3)
+    }
     
     // let index
     // while(index != -1){
