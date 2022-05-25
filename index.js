@@ -29,6 +29,11 @@ client.on('ready', () => {
     })
 
     commands?.create({
+        name: 'morb',
+        description: 'its morbin time'
+    })
+
+    commands?.create({
         name: 'add',
         description: 'Adds two numbers',
         options: [
@@ -55,7 +60,7 @@ client.on('ready', () => {
             name: 'name',
             description: 'the name of mid',
             required: true,
-            type: DiscordJS.Constans.ApplicationCommandOptionTypes.STRING,
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING,
         }]
     })
 
@@ -83,7 +88,7 @@ client.on('interactionCreate', async (interaction) => {
   } else if (commandName === 'mid') {
     const name = options.getString('name')
     let midReply
-    if(name.length() < 3){
+    if(name.length < 3){
         midReply = "Mid"
     } else {
         midReply = "Mid" + name.substring(3)
@@ -101,6 +106,10 @@ client.on('interactionCreate', async (interaction) => {
     interaction.reply({
         content: midReply,
     })
+  } else if (commandName === 'morb') {
+      interaction.reply({
+          content: 'https://cdn.discordapp.com/attachments/957957351548260412/977613997559914557/full-1.webm'
+      })
   }
 })
 
