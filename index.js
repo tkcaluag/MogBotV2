@@ -1,8 +1,6 @@
 const DiscordJS = require('discord.js');
 const { Intents } = require('discord.js');
 const dotenv = require('dotenv');
-import WOkCommands from 'wokcommands'
-import path from 'path'
 dotenv.config()
 
 const client = new DiscordJS.Client({
@@ -14,10 +12,6 @@ const client = new DiscordJS.Client({
 
 client.on('ready', () => {
     console.log('MogBot is online!')
-    
-    new WOKCommands(client, {
-        commandsDir: path.join(__dirname, 'commands')
-    })
 
     const guildId = '725133498293420073'
     const guild = client.guilds.cache.get(guildId)

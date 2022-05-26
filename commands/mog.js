@@ -1,14 +1,10 @@
-import { ICommand } from "wokcommands";
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
-export default {
-    category: 'Testing'
-    description 'replies with os',
-    
-    slash: true,
-    testOnly: true,
-    
-    callback: ({ message }) => {
-        message.reply('os')
-    },
-    
-} as ICommand
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('mog')
+        .setDescription('replies with os'),
+    async execute(interaction) {
+        await interaction.reply('os');
+    }
+}
