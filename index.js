@@ -1,6 +1,8 @@
 const DiscordJS = require('discord.js');
 const { Intents } = require('discord.js');
 const dotenv = require('dotenv');
+import WOkCommands from 'wokcommands'
+import path from 'path'
 dotenv.config()
 
 const client = new DiscordJS.Client({
@@ -12,6 +14,10 @@ const client = new DiscordJS.Client({
 
 client.on('ready', () => {
     console.log('MogBot is online!')
+    
+    new WOKCommands(client, {
+        commandsDir: path.join(__dirname, 'commands')
+    })
 
     const guildId = '725133498293420073'
     const guild = client.guilds.cache.get(guildId)
@@ -94,14 +100,14 @@ client.on('interactionCreate', async (interaction) => {
         midReply = "Mid" + name.substring(3)
     }
     
-    // let index
-    // while(index != -1){
-    //     index = midReply.indexOf(" ", index)
-    //     midReply = midReply.substring(0, index) + "mid" + midReply.substring(index+4)
-    //     if(index != -1){
-    //         index++;
-    //     }
-    // }
+    let index
+    while(index > -1) {
+        index = midReply.indexOf(" ") + index
+        if(index != -1){
+            midReply = midReply.substring(0, index) + "mid" + midReply.substring(index+1)
+        }
+    }
+    
     
     interaction.reply({
         content: midReply,
