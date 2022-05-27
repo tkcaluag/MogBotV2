@@ -4,9 +4,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('mid')
         .setDescription('makes the thing mid'),
-        .addStringOption((option) =>
-            option
-                .setName('name')
+        .addStringOption(option =>
+            option.setName('name')
                 .setDescription('the show/movie that is going to be mid')
                 .setRequired(true)
             ),
