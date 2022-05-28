@@ -7,7 +7,7 @@ module.exports = {
     once: true,
     
     execute (client, commands) {
-          console.log('MogBot is online!')
+          console.log('MogBot is online!');
     
     const CLIENT_ID = client.user.id;
     
@@ -19,15 +19,17 @@ module.exports = {
         try {
             if(process.env.ENV === "production") {
                 await rest.put(Routes.applicationCommands(CLIENT_ID), {
-                    body: commands
+                    body: commands,
                 });
                 
                 console.log("Successfully registered commands globally.");
             } else {
-                await rest.put(Routes.applicationGuildCommands(CLIENT_ID, process.env.GUILD_ID), {
-                    //Make sure to put GUILD_ID in the env file
-                    body: commands
-                });
+                await rest.put(
+                    Routes.applicationGuildCommands(CLIENT_ID, process.env.GUILD_ID), 
+                    {
+                    body: commands,
+                    }
+                );
                 console.log("Successfully registered commands locally.");
             }
         } catch (err) {
