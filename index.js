@@ -2,12 +2,15 @@ const DiscordJS = require('discord.js');
 const fs = require("fs");
 const { Client, Intents, Collection } = require('discord.js');
 const dotenv = require('dotenv');
+const { Player } = require("discord-player");
+
 dotenv.config()
 
 const client = new DiscordJS.Client({
     intents: [
         Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_VOICE_STATES
     ]
 })
 
@@ -36,5 +39,28 @@ for(const file of eventFiles) {
         client.on(event.name, (...args ) =>  event.execute(...args, commands));
     }
 }
+
+client.player = new Player(client, {
+    ytdlOptions: {
+        quality: "highestaudio",
+        highWaterMark: 1 << 25
+    }
+})
+
+
+
+client.on("interactionCreate", (interaction) => {
+    async function handleCommand() {
+        if (!interaction.isCommand()) return
+
+        const command = interaction.client.commands.get(interaction.commandName);
+        if (!command) interaction.reply("Not a valid slash command")
+
+        await interaction.deferReply()
+        await command.run({ client, interaction })
+    }
+    handleCommand()
+})
+
 
 client.login(process.env.TOKEN);

@@ -4,7 +4,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('mog')
         .setDescription('replies with os'),
-    async execute(interaction) {
-        await interaction.reply('os');
+    run: async ({client, interaction}) => {
+        await interaction.editReply('os');
     }
 }

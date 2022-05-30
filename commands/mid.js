@@ -10,7 +10,7 @@ module.exports = {
                 .setRequired(true)
             ),
         
-        async execute(interaction) {
+        run: async ({client, interaction}) => {
             const name = interaction.options.getString('name')
             let midReply
             if(name.length < 3){
@@ -19,7 +19,7 @@ module.exports = {
             midReply = "Mid" + name.substring(3)
             }
             
-            await interaction.reply({
+            await interaction.editReply({
                 content: midReply, 
             })
         }

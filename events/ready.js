@@ -36,5 +36,15 @@ module.exports = {
             if(err) console.error(err);
         }
     })();
+
+    client.user.setPresence({
+        activities: [{
+            type: 'PLAYING',
+            name: 'AMONG US'
+        }],
+
+        status: 'online'
+    })
+    
     }
 }

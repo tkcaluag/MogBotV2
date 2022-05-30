@@ -7,18 +7,18 @@ module.exports = {
         .addIntegerOption(option =>
             option.setName('num1')
                 .setDescription('the first number')
-                .setRequired(true));
+                .setRequired(true))
         .addIntegerOption(option =>
             option.setName('num2')
                 .setDescription('the second number')
-                .setRequired(true));
+                .setRequired(true)),
         
-    async execute(interaction) {
-        const num1 = options.getInteger('num1')
-        const num2 = options.getInteger('num2')
+    run: async({client,interaction}) => {
+        const num1 = interaction.options.getInteger('num1')
+        const num2 = interaction.options.getInteger('num2')
 
-      await interaction.reply({
-          content: `The sum is ${num1+num2}`,
+      await interaction.editReply({
+          content: `The sum is ${num1+num2}`
       })
     }
 }
