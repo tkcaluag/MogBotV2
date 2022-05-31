@@ -20,7 +20,7 @@ module.exports = {
             return await interaction.editReply(`⛔ Invalid Page. There are only a total of ${totalPages} pages of songs`)
 
         const queueString = queue.tracks.slice(page * 10, page * 10 + 10).map((song, i) => {
-            return `**${page * 10 + i + 1}.** \`[${song.duration}]\` ${song.title} -- <@${song.requestdBy.id}>`
+            return `**${page * 10 + i + 1}.** \`[${song.duration}]\` ${song.title} -- <@${song.requestedBy.id}>`
         }).join("\n")
 
         const currentSong = queue.current
@@ -28,9 +28,9 @@ module.exports = {
         await interaction.editReply({
             embeds: [
                 new MessageEmbed()
-                    .setDescription(`**Currently Playing**\n` + 
-                    (currentSong ? `\` [${currentSong.duration}]\` ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : "None") +
-                    `\n\n**Queue**\n${queueString}`
+                .setDescription(`**Currently Playing**\n` + 
+                (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : "None") +
+                `\n\n**Queue**\n${queueString}`
                     )
                     .setFooter({
                         text: `Page ${page} of ${totalPages}`
