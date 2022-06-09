@@ -39,39 +39,40 @@ module.exports = {
 
     let date = new Date()
     let day = date.getDay();
-    let hour = date.getHours();
-    let minutes = date.getMinutes();
+    let hour  = date.getHours();
+    let minutes  = date.getMinutes();
 
-    setInterval(function() {
-        day = date.getDay();
-        year = date.getFullYear();
-        hour = date.getHours();
-        minutes = date.getMinutes();
+        function status() {
+            date = new Date()
+            day = date.getDay();
+            hour = date.getHours();
+            minutes = date.getMinutes();
+            console.log(day + " - " + hour + ":" + minutes)
 
-        console.log(day + " - " + hour + ":" + minutes)
-
-    if(day == 5) {
-        client.user.setPresence({ activities: [{type: 'WATCHING', name: 'Love is War'}]})
-    }
-
-    else if(day == 6) {
-
-        if( (hour == 8 && minutes == 45) || (hour == 8 && minutes >= 45) || hour >= 8 ) {
-        client.user.setPresence({ activities: [{type: 'WATCHING', name: 'Spy x Family'}]})
-    }
-
-        if(hour >= 19) {
-            client.user.setPresence({ activities: [{type: 'WATCHING', name: 'One Piece'}]})
+            if(day == 5) {
+                client.user.setPresence({ activities: [{type: 'WATCHING', name: 'Love is War'}]})
+            }
+        
+            else if(day == 6) {
+                if( (hour == 8 && minutes == 45) || (hour == 8 && minutes >= 45) || hour >= 8 ) {
+                client.user.setPresence({ activities: [{type: 'WATCHING', name: 'Spy x Family'}]})
+            }
+        
+                if(hour >= 19) {
+                    client.user.setPresence({ activities: [{type: 'WATCHING', name: 'One Piece'}]})
+                }
         }
-    }
-    else if(day == 4) {
-        client.user.setPresence({ activities: [{type: 'WATCHING', name: 'Morbius'}]})
-    }
-    else {
-        client.user.setPresence({ activities: [{type: 'PLAYING', name: 'AMONG US'}]})
-    }
+        
+            else if(day == 4) {
+                client.user.setPresence({ activities: [{type: 'WATCHING', name: 'Morbius'}]})
+            }
+            else {
+                client.user.setPresence({ activities: [{type: 'PLAYING', name: 'AMONG US'}]})
+            }
+        
+        }
 
-    }, 15000);
+    setInterval(status, 15000)
 
     }
 }
