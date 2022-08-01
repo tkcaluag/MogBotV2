@@ -1,20 +1,14 @@
-const { MessageEmbed } = require("discord.js")
-const { SlashCommandBuilder } = require("@discordjs/builders")
-
 module.exports = {
-	data: new SlashCommandBuilder().setName("skip").setDescription("Skips the current song"),
-	run: async ({ client, interaction }) => {
-		const queue = client.player.getQueue(interaction.guildId)
-
-		if (!queue) return await interaction.editReply("there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue")
-
-        const currentSong = queue.current
-
-		queue.skip()
-        await interaction.editReply({
-            embeds: [
-                new MessageEmbed().setDescription(`✅  ${currentSong.title} has been skipped!`).setThumbnail(currentSong.thumbnail)
-            ]
-        })
-	},
-}
+    name: 'skip',
+    inVoiceChannel: true,
+    run: async (client, message) => {
+      const queue = client.distube.getQueue(message)
+      if (!queue) return message.channel.send(`there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue`)
+      try {
+        const song = await queue.skip()
+        message.channel.send(`👍  |  Skipped!`)
+      } catch (e) {
+        message.channel.send(`${client.emotes.error} | ${e}`)
+      }
+    }
+  }

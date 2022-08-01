@@ -1,10 +1,15 @@
 module.exports = {
-    name: 'shuffle',
+    name: 'resume',
+    // aliases: ['resume', 'unpause'],
     inVoiceChannel: true,
     run: async (client, message) => {
       const queue = client.distube.getQueue(message)
       if (!queue) return message.channel.send(`there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue`)
-      queue.shuffle()
-      message.channel.send('🗂  |  Shuffled!')
+      if (queue.paused) {
+        queue.resume()
+        return message.channel.send('▶ | Resumed')
+      } else {
+        message.channel.send('its not paused!!!!!')
+      }
     }
   }
