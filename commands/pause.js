@@ -7,9 +7,9 @@ module.exports = {
       if (!queue) return message.channel.send(`there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue `)
       if (queue.paused) {
         queue.resume()
-        return message.channel.send('▶  |  Resumed')
+        return message.channel.send('▶  Resumed')
       }
       queue.pause()
-      message.channel.send('⏸  |  Paused')
+      message.channel.send('⏸  Paused')
     }
   }

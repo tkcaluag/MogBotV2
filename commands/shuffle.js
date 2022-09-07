@@ -5,6 +5,6 @@ module.exports = {
       const queue = client.distube.getQueue(message)
       if (!queue) return message.channel.send(`there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue`)
       queue.shuffle()
-      message.channel.send('🗂  |  Shuffled!')
+      message.channel.send('🔀  Shuffled!')
     }
   }

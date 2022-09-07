@@ -1,3 +1,4 @@
+
 const DiscordJS = require('discord.js');
 const fs = require("fs");
 const { Intents, Collection, ActivityType } = require('discord.js');
@@ -5,10 +6,9 @@ const { EmbedBuilder } = require("discord.js")
 const { DisTube } = require('distube')
 const dotenv = require('dotenv');
 const { SpotifyPlugin } = require('@distube/spotify')
-const { SoundCloudPlugin } = require('@distube/soundcloud')
 const { YtDlpPlugin } = require('@distube/yt-dlp')
-const config = require('./config.json')
-// const keepAlive = require('./server')
+const config = require('./con.json')
+require("./html.js");
 
 dotenv.config()
 
@@ -30,12 +30,9 @@ client.distube = new DisTube(client, {
     new SpotifyPlugin({
       emitEventsAfterFetching: true
     }),
-    new SoundCloudPlugin(),
     new YtDlpPlugin()
   ]
 })
-
-const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 
 const commands = [];
 
@@ -68,19 +65,6 @@ fs.readdir('./commands/', (err, files) => {
   console.log("Commands Loaded!")
 })
 
-client.on("interactionCreate", (interaction) => {
-  async function handleCommand() {
-    if (!interaction.isCommand()) return
-
-    const command = interaction.client.commands.get(interaction.commandName);
-    if (!command) interaction.reply("Not a valid slash command")
-
-    await interaction.deferReply()
-    await command.run({ client, interaction })
-  }
-  handleCommand()
-})
-
 client.on('messageCreate', async message => {
   if (message.author.bot || !message.guild) return
   const prefix = config.prefix
@@ -96,45 +80,47 @@ client.on('messageCreate', async message => {
     cmd.run(client, message, args);
   } catch (e) {
     console.error(e)
-    message.channel.send('⛔ This is not a valid slash command')
+    message.channel.send('⛔ This is not a valid command')
   }
 })
 
 const status = queue =>
 
 
-  `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
-    queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
+  `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
   }\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
 
 client.distube
 
-.on('playSong', (queue, song) =>
+  .on('playSong', (queue, song) =>
 
-    queue.textChannel.send({embeds: [new EmbedBuilder()
-      .setAuthor({name: 'Now Playing...', iconURL: 'https://c.tenor.com/SumAMhoE7EgAAAAi/among-us.gif'})
-      .setDescription( `**[${song.name}](${song.url})**`)
-      .setThumbnail(song.thumbnail)
-      .addFields(
-        { name: 'Requested By', value: `${song.member}`, inline: true},
-        { name: 'Duration', value: `${song.formattedDuration}`, inline: true}
-      )
-    
-    ]})
+    queue.textChannel.send({
+      embeds: [new EmbedBuilder()
+        .setAuthor({ name: 'Now Playing...', iconURL: 'https://c.tenor.com/SumAMhoE7EgAAAAi/among-us.gif' })
+        .setDescription(`**[${song.name}](${song.url})**`)
+        .setThumbnail(song.thumbnail)
+        .addFields(
+          { name: 'Requested By', value: `${song.member}`, inline: true },
+          { name: 'Duration', value: `${song.formattedDuration}`, inline: true }
+        )
+
+      ]
+    })
   )
 
   .on('addSong', (queue, song) =>
-    queue.textChannel.send({embeds: [new EmbedBuilder()
+    queue.textChannel.send({
+      embeds: [new EmbedBuilder()
 
-      .setDescription(`🎶  **[${song.name}](${song.url})** has been added to the Queue`)
-      .setFooter({ text: `Duration: ${song.formattedDuration}`})
+        .setDescription(`🎶  **[${song.name}](${song.url})** has been added to the Queue`)
+        .setFooter({ text: `Duration: ${song.formattedDuration}` })
 
-    ]}))
+      ]
+    }))
 
   .on('addList', (queue, playlist) =>
     queue.textChannel.send(
-      `${client.emotes.success} | Added \`${playlist.name}\` playlist (${
-        playlist.songs.length
+      `${client.emotes.success} | Added \`${playlist.name}\` playlist (${playlist.songs.length
       } songs) to queue\n${status(queue)}`
     )
   )
@@ -148,6 +134,5 @@ client.distube
   .on('searchNoResult', (message, query) =>
     message.channel.send(`${client.emotes.error} | No result found for \`${query}\`!`)
   )
-
 
 client.login(process.env.TOKEN);

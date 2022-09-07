@@ -6,9 +6,9 @@ module.exports = {
       if (!queue) return message.channel.send(`there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue`)
       try {
         const song = await queue.skip()
-        message.channel.send(`👍  |  Skipped!`)
+        message.channel.send(`👍  Skipped!`)
       } catch (e) {
-        message.channel.send(`${client.emotes.error} | ${e}`)
+        message.channel.send(`${client.emotes.error}  ${e} \n Try doing "-leave"`)
       }
     }
   }

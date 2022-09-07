@@ -6,6 +6,6 @@ module.exports = {
       const queue = client.distube.getQueue(message)
       if (!queue) return message.channel.send(`there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue there is no queue `)
       queue.stop()
-      message.channel.send(`⛔  |  Stopped!`)
+      message.channel.send(`⛔  Stopped!`)
     }
   }
