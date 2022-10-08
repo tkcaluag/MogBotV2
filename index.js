@@ -9,7 +9,22 @@ const { SpotifyPlugin } = require('@distube/spotify')
 const { YtDlpPlugin } = require('@distube/yt-dlp')
 const config = require('./config.json')
 
+
 dotenv.config()
+
+// const { exec } = require("child_process");
+
+// exec("kill 1", (error, stdout, stderr) => {
+//   if (error) {
+//     console.log(`error: ${error.message}`);
+//     return;
+//   }
+//   if (stderr) {
+//     console.log(`stderr: ${stderr}`);
+//     return;
+//   }
+//   console.log(`stdout: ${stdout}`);
+// });
 
 const client = new DiscordJS.Client({
   intents: [
@@ -33,9 +48,9 @@ client.distube = new DisTube(client, {
   ]
 })
 
-    client.commands = new DiscordJS.Collection();
-    client.aliases = new DiscordJS.Collection();
-    client.emotes = config.emoji
+client.commands = new DiscordJS.Collection();
+client.aliases = new DiscordJS.Collection();
+client.emotes = config.emoji
 
 const commands = [];
 
@@ -43,16 +58,16 @@ const eventFiles = fs
   .readdirSync("./events")
   .filter(file => file.endsWith('js'));
 
-  fs.readdir('./commands/', (err, files) => {
-    if (err) return console.log(err)
-    const jsFiles = files.filter(f => f.split('.').pop() === 'js')
-    if (jsFiles.length <= 0) return console.log('Could not find any commands!')
-    jsFiles.forEach(file => {
-      const cmd = require(`./commands/${file}`)
-      client.commands.set(cmd.name, cmd)
-    })
-    console.log("Commands Loaded!")
+fs.readdir('./commands/', (err, files) => {
+  if (err) return console.log(err)
+  const jsFiles = files.filter(f => f.split('.').pop() === 'js')
+  if (jsFiles.length <= 0) return console.log('Could not find any commands!')
+  jsFiles.forEach(file => {
+    const cmd = require(`./commands/${file}`)
+    client.commands.set(cmd.name, cmd)
   })
+  console.log("Commands Loaded!")
+})
 
 for (const file of eventFiles) {
   const event = require(`./events/${file}`);
